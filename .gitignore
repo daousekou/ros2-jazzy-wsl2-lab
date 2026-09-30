@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ROS 2 / colcon
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# Local environment
+.env
+.venv/
+venv/
+
+# Editors
+.vscode/
+.idea/
+
+# Secrets and credentials
+*.pem
+*.key
+*.crt
+id_rsa*
+id_ed25519*
