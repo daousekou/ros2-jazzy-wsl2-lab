@@ -47,6 +47,27 @@ colcon build
 source install/setup.bash
 ```
 
+Compiler un seul package :
+
+```bash
+colcon build --packages-select loq_ros2_demo
+source install/setup.bash
+```
+
+## Tester les noeuds ROS 2 de demonstration
+
+Terminal 1 :
+
+```bash
+ros2 run demo_nodes_cpp talker
+```
+
+Terminal 2 :
+
+```bash
+ros2 run demo_nodes_py listener
+```
+
 ## Lancer le test talker/listener
 
 Terminal 1 :
@@ -74,4 +95,6 @@ ros2 node list
 ros2 topic list
 ros2 topic info /demo_message
 ros2 topic echo /demo_message
+ros2 node list
+ros2 node info /simple_talker
 ```

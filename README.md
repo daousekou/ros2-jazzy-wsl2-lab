@@ -10,6 +10,8 @@ Ce depot est volontairement generique. Il ne contient aucun secret, aucun chemin
 - Creer un workspace ROS 2 avec `colcon`.
 - Compiler et lancer un premier package Python.
 - Verifier la communication ROS 2 avec `talker` et `listener`.
+- Creer un premier noeud ROS 2 Python.
+- Verifier le noeud avec `ros2 node list` et `ros2 node info`.
 - Ajouter une base de travail pour TF2 et URDF.
 - Documenter les commandes et les tests realises.
 
@@ -111,6 +113,13 @@ ros2 run loq_ros2_demo simple_listener
 
 ## Tests rapides
 
+Tester les noeuds de demonstration ROS 2 :
+
+```bash
+ros2 run demo_nodes_cpp talker
+ros2 run demo_nodes_py listener
+```
+
 Verifier les topics :
 
 ```bash
@@ -123,6 +132,61 @@ Verifier les packages :
 ```bash
 ros2 pkg list | grep loq_ros2_demo
 ```
+
+Lancer le package de demonstration du depot :
+
+```bash
+ros2 run loq_ros2_demo simple_talker
+ros2 run loq_ros2_demo simple_listener
+```
+
+Verifier les noeuds actifs :
+
+```bash
+ros2 node list
+ros2 node info /simple_talker
+```
+
+## Concepts couverts
+
+### Publisher, topic et subscriber
+
+Le premier test ROS 2 illustre le principe :
+
+```text
+Node publisher -> Topic -> Node subscriber
+```
+
+Ce schema est la base de nombreux systemes robotiques. Par exemple, un capteur peut publier des mesures pendant qu'un autre noeud les utilise pour la localisation, le SLAM ou la navigation.
+
+### Workspace ROS 2
+
+Un workspace ROS 2 contient generalement :
+
+```text
+ros2_ws/
+|-- build/
+|-- install/
+|-- log/
+`-- src/
+```
+
+Le dossier `src` contient le code source. Les dossiers `build`, `install` et `log` sont generes par `colcon` et ne sont pas suivis dans Git.
+
+### Premier noeud Python
+
+Un noeud ROS 2 Python repose sur `rclpy` et herite de la classe `Node`. Le fichier doit ensuite etre declare dans `setup.py` pour pouvoir etre lance avec `ros2 run`.
+
+Exemple de commande de build ciblee :
+
+```bash
+colcon build --packages-select loq_ros2_demo
+source install/setup.bash
+```
+
+### Erreur courante
+
+Une erreur Python comme `IndentationError` indique souvent un probleme d'alignement dans le code. Apres correction, il faut reconstruire le package puis recharger l'environnement du workspace.
 
 ## URDF
 
